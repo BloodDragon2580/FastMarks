@@ -37,8 +37,8 @@ local editBoxBackdrop = {
 }
 
 FM_mainFrame = CreateFrame("Frame", "FM_mainFrame", UIParent)
-FM_mainFrame:SetBackdrop(borderlessBackdrop)
-FM_mainFrame:SetBackdropColor(0,0,0,0)
+--FM_mainFrame:SetBackdrop(borderlessBackdrop)
+--FM_mainFrame:SetBackdropColor(0,0,0,0)
 FM_mainFrame:EnableMouse(true)
 FM_mainFrame:SetMovable(true)
 FM_mainFrame:SetSize(190,35)
@@ -46,8 +46,8 @@ FM_mainFrame:SetPoint("TOP", UIParent, "TOP")
 FM_mainFrame:SetClampedToScreen(true)
 
 local FM_IconFrame = CreateFrame("Frame", "FM_IconFrame", FM_mainFrame)
-FM_IconFrame:SetBackdrop(defaultBackdrop)
-FM_IconFrame:SetBackdropColor(0.1,0.1,0.1,0.7)
+--FM_IconFrame:SetBackdrop(defaultBackdrop)
+--FM_IconFrame:SetBackdropColor(0.1,0.1,0.1,0.7)
 FM_IconFrame:EnableMouse(true)
 FM_IconFrame:SetMovable(true)
 FM_IconFrame:SetSize(190,35)
@@ -159,11 +159,11 @@ end
 
 function FM_backgroundChange()
 	if Defaults.backgroundHide == true then
-		FM_IconFrame:SetBackdropColor(0,0,0,0)
-		FM_IconFrame:SetBackdropBorderColor(0,0,0,0)
+		--FM_IconFrame:SetBackdropColor(0,0,0,0)
+		--FM_IconFrame:SetBackdropBorderColor(0,0,0,0)
 	elseif Defaults.backgroundHide == false then
-		FM_IconFrame:SetBackdropColor(0.1,0.1,0.1,0.7)
-		FM_IconFrame:SetBackdropBorderColor(1,1,1,1)
+		--FM_IconFrame:SetBackdropColor(0.1,0.1,0.1,0.7)
+		--FM_IconFrame:SetBackdropBorderColor(1,1,1,1)
 	end
 end
 
