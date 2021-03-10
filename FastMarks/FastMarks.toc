@@ -1,4 +1,4 @@
-## Interface: 90002
+## Interface: 90005
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
