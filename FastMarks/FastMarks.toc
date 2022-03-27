@@ -2,7 +2,7 @@
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
-## Version: 3.8
+## Version: 3.9
 ## SavedVariablesPerCharacter: Defaults
 ## SavedVariables: Defaults
 
