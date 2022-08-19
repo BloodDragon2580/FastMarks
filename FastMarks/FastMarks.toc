@@ -1,8 +1,8 @@
-## Interface: 90205
+## Interface: 90207
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
-## Version: 4.0
+## Version: 4.1
 ## SavedVariablesPerCharacter: Defaults
 ## SavedVariables: Defaults
 
