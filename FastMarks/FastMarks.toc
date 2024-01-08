@@ -2,9 +2,24 @@
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
-## Version: 5.3
-## SavedVariablesPerCharacter: Defaults
-## SavedVariables: Defaults
+## Version: 5.4
 ## IconTexture: Interface\AddOns\FastMarks\Media\Texture\logo
+## AddonCompartmentFunc: FastMarksAce_OpenConfig
+## SavedVariables: FastMarksAceDB
+## SavedVariablesPerCharacter: FastMarksDB, FastMarksFlaresDB
+
+embeds.xml
+
+local\enUS.lua
+local\esES.lua
+local\deDE.lua
+local\esMX.lua
+local\frFR.lua
+local\koKR.lua
+local\ruRU.lua
+local\zhCN.lua
+local\zhTW.lua
+local\itIT.lua
 
 FastMarks.lua
+settings.lua
