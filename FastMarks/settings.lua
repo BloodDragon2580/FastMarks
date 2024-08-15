@@ -34,7 +34,7 @@ function config:OnInitialize()
 	FastMarksAce:RegisterEvent("PLAYER_TARGET_CHANGED","EventHandler")
 	FastMarksAce:RegisterEvent("PLAYER_REGEN_ENABLED","EventHandler")
 
-	FastMarksAce.db.global.lastVer = GetAddOnMetadata("FastMarks","Version")
+	FastMarksAce.db.global.lastVer = C_AddOns.GetAddOnMetadata("FastMarks","Version")
 end
 
 function config:OnEnable()
