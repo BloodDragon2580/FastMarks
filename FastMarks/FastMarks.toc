@@ -2,7 +2,7 @@
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
-## Version: 10.0
+## Version: 10.1
 ## IconTexture: Interface\AddOns\FastMarks\Media\Texture\logo
 ## AddonCompartmentFunc: FastMarksAce_OpenConfig
 ## SavedVariables: FastMarksAceDB
