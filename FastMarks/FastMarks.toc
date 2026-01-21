@@ -1,8 +1,8 @@
-## Interface: 120001
+## Interface: 120000
 ## Title:|cffd6266cFastMarks|r
 ## Notes: Fast Marking NPC or else
 ## Author: BloodDragon2580
-## Version: 13.4
+## Version: 13.5
 ## IconTexture: Interface\AddOns\FastMarks\Media\Texture\logo
 ## AddonCompartmentFunc: FastMarksAce_OpenConfig
 ## SavedVariables: FastMarksAceDB
