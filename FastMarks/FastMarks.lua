@@ -145,19 +145,43 @@ function FastMarksAce:OnEnable()
 	FastMarksAce.raidMain.icon = {}
 	local lastFrame, xOff
 	local function iconNew(name, num)
-		if lastFrame then xOff = 0 else xOff = 5 end
-		local f = CreateFrame("Button", string.format("FastMarks%sicon",name), FastMarksAce.raidMain.iconFrame, "BackdropTemplate");
+		if lastFrame then
+			xOff = 0
+		else
+			xOff = 5
+		end
+
+		local f = CreateFrame("Button", string.format("FastMarks%sicon", name), FastMarksAce.raidMain.iconFrame, "SecureActionButtonTemplate,BackdropTemplate")
 		table.insert(FastMarksAce.raidMain.icon, f)
+
 		f:SetSize(20,20)
-		f:SetPoint("LEFT",lastFrame or FastMarksAce.raidMain.iconFrame,xOff,0)
-		f:SetNormalTexture(string.format("interface\\targetingframe\\ui-raidtargetingicon_%d",num))
+		f:SetPoint("LEFT", lastFrame or FastMarksAce.raidMain.iconFrame, xOff, 0)
+		f:SetNormalTexture(string.format("interface\\targetingframe\\ui-raidtargetingicon_%d", num))
 		f:EnableMouse(true)
-		f:RegisterForClicks("LeftButtonDown", "RightButtonDown")
-		f:SetScript("OnClick", function(self, button) if (button=="LeftButton") then SetRaidTarget("target", num) else LibStub("AceConfigDialog-3.0"):Open("FastMarks") end end)
-		--f:SetScript("OnEnter", function(self) if (FastMarksAce.db.profile.raid.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L[name]); GameTooltip:Show() end end)
+		f:RegisterForClicks("AnyUp", "AnyDown")
+
+		-- Left click = mark current target
+		f:SetAttribute("type1", "macro")
+		f:SetAttribute("macrotext1", string.format("/run SetRaidTarget('target', %d)", num))
+
+		-- Right click = open options outside combat
+		f:SetScript("PreClick", function(self, button)
+			if button == "RightButton" and not InCombatLockdown() then
+				LibStub("AceConfigDialog-3.0"):Open("FastMarks")
+			end
+		end)
+
 		--Use Global Strings for Tooltip
-		f:SetScript("OnEnter", function(self) if (FastMarksAce.db.profile.raid.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(_G["BINDING_NAME_RAIDTARGET"..num]); GameTooltip:Show() end end)
+		f:SetScript("OnEnter", function(self)
+			if FastMarksAce.db.profile.raid.tooltips == true then
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+				GameTooltip:ClearLines()
+				GameTooltip:AddLine(_G["BINDING_NAME_RAIDTARGET" .. num])
+				GameTooltip:Show()
+			end
+		end)
 		f:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+
 		lastFrame = f
 		FastMarksAce.raidMain.icon[name] = f
 	end
@@ -182,15 +206,33 @@ function FastMarksAce:OnEnable()
 	controlFrame:SetSize(55,35)
 	controlFrame:SetPoint("RIGHT", FastMarksAce.raidMain, "RIGHT")
 	FastMarksAce.raidMain.controlFrame = controlFrame
-	local clearIcon = CreateFrame("Button", "FastMarksClearIcon", FastMarksAce.raidMain.controlFrame, "BackdropTemplate");
+	local clearIcon = CreateFrame("Button", "FastMarksClearIcon", FastMarksAce.raidMain.controlFrame, "SecureActionButtonTemplate,BackdropTemplate")
 	clearIcon:SetSize(20,20)
 	clearIcon:SetPoint("LEFT", FastMarksAce.raidMain.controlFrame, "LEFT",10,0)
 	clearIcon:SetNormalTexture("interface\\glues\\loadingscreens\\dynamicelements")
 	clearIcon:GetNormalTexture():SetTexCoord(0,0.5,0,0.5)
 	clearIcon:EnableMouse(true)
-	clearIcon:RegisterForClicks("LeftButtonDown","RightButtonDown")
-	clearIcon:SetScript("OnClick", function(self, button) if (button=="LeftButton") then SetRaidTarget("target", 0) else LibStub("AceConfigDialog-3.0"):Open("FastMarks") end end)
-	clearIcon:SetScript("OnEnter", function(self) if (FastMarksAce.db.profile.raid.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Clear mark"]); GameTooltip:Show() end end)
+	clearIcon:RegisterForClicks("AnyUp","AnyDown")
+
+	-- Left click = clear target mark
+	clearIcon:SetAttribute("type1", "macro")
+	clearIcon:SetAttribute("macrotext1", "/run SetRaidTarget('target', 0)")
+
+	-- Right click = open options outside combat
+	clearIcon:SetScript("PreClick", function(self, button)
+		if button == "RightButton" and not InCombatLockdown() then
+			LibStub("AceConfigDialog-3.0"):Open("FastMarks")
+		end
+	end)
+
+	clearIcon:SetScript("OnEnter", function(self)
+		if FastMarksAce.db.profile.raid.tooltips == true then
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(L["Clear mark"])
+			GameTooltip:Show()
+		end
+	end)
 	clearIcon:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	FastMarksAce.raidMain.clearIcon = clearIcon
 	local readyCheck = CreateFrame("Button", "FastMarksReadyCheck", FastMarksAce.raidMain.controlFrame, "BackdropTemplate");
@@ -292,5 +334,3 @@ end
 function FastMarksAce_OpenConfig()
 	LibStub("AceConfigDialog-3.0"):Open("FastMarks")
 end
-
-
