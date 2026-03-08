@@ -162,7 +162,7 @@ function FastMarksAce:OnEnable()
 
 		-- Left click = mark current target
 		f:SetAttribute("type1", "macro")
-		f:SetAttribute("macrotext1", string.format("/run SetRaidTarget('target', %d)", num))
+		f:SetAttribute("macrotext1", string.format("/tm %d", num))
 
 		-- Right click = open options outside combat
 		f:SetScript("PreClick", function(self, button)
@@ -216,7 +216,7 @@ function FastMarksAce:OnEnable()
 
 	-- Left click = clear target mark
 	clearIcon:SetAttribute("type1", "macro")
-	clearIcon:SetAttribute("macrotext1", "/run SetRaidTarget('target', 0)")
+	clearIcon:SetAttribute("macrotext1", "/tm 0")
 
 	-- Right click = open options outside combat
 	clearIcon:SetScript("PreClick", function(self, button)

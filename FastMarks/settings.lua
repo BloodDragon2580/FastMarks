@@ -527,34 +527,45 @@ end
 -------------------------------------------------------
 
 function FastMarksAce:updateVisibility()
-	--Start off by saying both should be shown
-	FastMarksAce.raidMain:Show()
+	local raidMarks = true
 	local worldMarks = true
 
+	if (InCombatLockdown()) then
+		FastMarksAce:RegisterOOCFunc(self,"updateVisibility");
+		return
+	end
+
 	--Raid Marker check
-	if (dbRaid.shown==false) then FastMarksAce.raidMain:Hide() end
-	if (dbRaid.partyShow==true) then if (GetNumGroupMembers()==0) then FastMarksAce.raidMain:Hide() end end
-	if (dbRaid.targetShow==true) then if not (UnitExists("target")) then FastMarksAce.raidMain:Hide() end end
-	if (dbRaid.assistShow==true) then if (IsInRaid()) and (UnitIsGroupAssistant("player")==false and UnitIsGroupLeader("player")==false) then FastMarksAce.raidMain:Hide() end end
+	if (dbRaid.shown==false) then raidMarks = false end
+	if (dbRaid.partyShow==true) then if (GetNumGroupMembers()==0) then raidMarks = false end end
+	if (dbRaid.targetShow==true) then if not (UnitExists("target")) then raidMarks = false end end
+	if (dbRaid.assistShow==true) then if (IsInRaid()) and (UnitIsGroupAssistant("player")==false and UnitIsGroupLeader("player")==false) then raidMarks = false end end
 
 	--World Marker check
 	if (dbWorld.shown==false) then worldMarks = false end
 	if (dbWorld.partyShow==true) then if (GetNumGroupMembers()==0) then worldMarks = false end end
 	if (dbWorld.assistShow==true) then if (IsInRaid()==true) and (UnitIsGroupAssistant("player")==false and UnitIsGroupLeader("player")==false) then worldMarks = false end end
 
-	--World Marker hide/show
-	if not (InCombatLockdown()) then
-		if (worldMarks==true) then
-			if not(FastMarksAce.worldMain:IsShown()) then 
-				FastMarksAce.worldMain:Show() 
-			end
-		else
-			if (FastMarksAce.worldMain:IsShown()) then
-				FastMarksAce.worldMain:Hide()
-			end
+	--Raid Marker hide/show
+	if (raidMarks==true) then
+		if not(FastMarksAce.raidMain:IsShown()) then
+			FastMarksAce.raidMain:Show()
 		end
 	else
-		FastMarksAce:RegisterOOCFunc(self,"updateVisibility");
+		if (FastMarksAce.raidMain:IsShown()) then
+			FastMarksAce.raidMain:Hide()
+		end
+	end
+
+	--World Marker hide/show
+	if (worldMarks==true) then
+		if not(FastMarksAce.worldMain:IsShown()) then 
+			FastMarksAce.worldMain:Show() 
+		end
+	else
+		if (FastMarksAce.worldMain:IsShown()) then
+			FastMarksAce.worldMain:Hide()
+		end
 	end
 end
 
